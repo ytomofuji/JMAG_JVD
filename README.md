@@ -9,7 +9,7 @@ Other scripts related to the analysis performed in the Tomofuji et al are also d
 
 # Overview (Recovery of MAGs)
 <div align="center">
-<img src="Figure/MAG_Pipeline.jpg" width=60%>
+<img src="Figures/MAG_Pipeline.jpg" width=60%>
 </div>
 
 # Requirements
