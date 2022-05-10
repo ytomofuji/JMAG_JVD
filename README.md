@@ -34,11 +34,11 @@ First, contigs were assembled from gut metagenome shotgun sequencing data with t
 Input file should be named as `${ID}_R1.fastq.gz` and `${ID}_R2.fastq.gz`  
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`FASTQ_DIR`: Directory of original fastq file  
-`ID`: Sample ID   
-`THREADS`: Number of the threads  
-`LENGTH`: Minimum length of the contigs used for the subsequent analyses (2,000 bp was used in the original manuscript)  
+・`DIR`: Directory for analysis  
+・`FASTQ_DIR`: Directory of original fastq file  
+・`ID`: Sample ID   
+・`THREADS`: Number of the threads  
+・`LENGTH`: Minimum length of the contigs used for the subsequent analyses (2,000 bp was used in the original manuscript)  
 
 This script outputs contigs and their coverages which were used for the subsequent binning.
 
@@ -47,9 +47,9 @@ Binning with metabat2, maxbin2, and concoct was performed with the script `02_bi
 The outputs from three softwares were combined with the dastools.
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`ID`: Sample ID   
-`LENGTH`: Minimum length of the contigs used for the subsequent analyses (2,000 bp was used in the original manuscript)  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`LENGTH`: Minimum length of the contigs used for the subsequent analyses (2,000 bp was used in the original manuscript)  
 
 This script outputs raw bins which were subjected to the subsequent quality control.
 
@@ -57,9 +57,9 @@ This script outputs raw bins which were subjected to the subsequent quality cont
 QC (CheckM) and refinement (RefineM) of the bins made in Step2 were performed with the script `03_QC_and_refine.sh`.  
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`ID`: Sample ID   
-`SET_NAME`: Name of the dataset (used for the file name of the QCed MAGs) 
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`SET_NAME`: Name of the dataset (used for the file name of the QCed MAGs) 
 
 The protein and taxonomy databases for RefineM should be given with the variables `${REFINEM_PROTEIN_DB}` and `${REFINEM_TAXONOMY_DB}`, respectively.
 
@@ -71,9 +71,9 @@ We also detected tRNA (tRNAscan-SE) and rRNA (barrnap) in the QCed MAGs.
 These analyses were performed with the script `04_strain_div_and_RNA_anno.sh`.  
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`ID`: Sample ID   
-`FASTQ_DIR`: Directory of original fastq file  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`FASTQ_DIR`: Directory of original fastq file  
 
 This script outputs a single summary file which includes the summarized results of the inStrain, tRNAscan-SE, and barrnap.
 
@@ -83,10 +83,10 @@ Then, functions of these putative genes were annotated with the eggNOG-mapper.
 These analyses were performed with the script `05_Gene_annotation.sh`.  
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`ID`: Sample ID   
-`THREADS`: Number of the threads  
-`EGG_NOG_DB_DIR`: Directory of the databases for the eggNOG-mapper  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`THREADS`: Number of the threads  
+・`EGG_NOG_DB_DIR`: Directory of the databases for the eggNOG-mapper  
 
 This script outputs the result of the prodigal and eggNOG-mapper per MAGs.
 Per-sample summary files for the each annoytation of the eggNOG-mapper (i.e. COG, KEGG gene, KEGG pathway, KEGG module, and CAZy) are also generated.
@@ -95,18 +95,18 @@ Per-sample summary files for the each annoytation of the eggNOG-mapper (i.e. COG
 For the QCed MAGs recovered in Step3, we predicted the CRISPR sequences with the MINCED (`06_1_CRISPR_FIND.sh`).   
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`ID`: Sample ID   
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
 
 `06_1_CRISPR_FIND.sh` outputs the spacer sequences per MAGs.
 
 Then, CRISPR spacers were subjected to the blast search against the viral genome databases with the script `06_2_CRISPR_BLAST.sh`.
 
 Following variables are required:  
-`DIR`: Directory for analysis  
-`ID`: Sample ID   
-`DB`: A blast database made from a viral genome database   
-`DB_NAME`: Name of the viral genome database (used for the name of the directory of the result files (`${DIR}/BIN_CRISPR/${ID}/BLAST/${DB_NAME}_${SOFT}`))  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`DB`: A blast database made from a viral genome database   
+・`DB_NAME`: Name of the viral genome database (used for the name of the directory of the result files [`${DIR}/BIN_CRISPR/${ID}/BLAST/${DB_NAME}_${SOFT}`])  
 
 This script outputs the result of the blast search.
 
@@ -116,4 +116,32 @@ This script outputs the result of the blast search.
 <div align="center">
 <img src="Figures/Virus_Pipeline.jpg" width=60%>
 </div>
+
+## StepV1. VirSorter and VirFinder
+Viral genomes were detected by the VirSorter and VirFinder from the contigs assembled in Step1.   
+This procedure is performed with the sceript `V01_VirSorter_and_VirFinder.sh`.
+
+Following variables are required:  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`LENGTH`: Minimum length of the contigs used for the subsequent analyses (5,000 bp was used in the original manuscript)  
+・`VIR_FINDER_DIR`: A directory which contains the VirFinder software (virfinder.R).  
+・`VIR_SORTER_DB_DIR`: A directory which contains the databases for the VirFinder.  
+・`SCRIPT_DIR`: A directory which contains the custom scripts used in the `V01_VirSorter_and_VirFinder.sh` (i.e. Virome_sorter_finder_merge.R).  
+
+The results of the VirSorter and VirFinder were summarized into the `${ID}_virsorter_and_finder.txt`.
+
+## StepV2. Extraction of the viral contigs and quality control by the CheckV
+Viral genomes were extracted based on the result in the StepV1 and subjected to the quality control by the CheckV software.
+This procedure is performed with the sceript `V02_contig_extraction_and_CheckV.sh`.
+
+Following variables are required:  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`SET_ID`: Name of the dataset which is used for the name of the output files  
+・`SCRIPT_DIR`: A directory which contains the custom scripts used in the `V02_contig_extraction_and_CheckV.sh` (i.e. Virome_ver2_metrics_summary.R and Virome_rename_ver2.py).  
+・`CHECKV_DB`: A path to the database for the CheckV.  
+
+The QCed viral genome sequences was sumamrized in the `${DIR}/VIRUS_2/${ID}/Renamed_virus.fa.gz`.
+
 
