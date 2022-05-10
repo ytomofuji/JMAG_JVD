@@ -53,12 +53,26 @@ Following variables are required:
 This script outputs raw bins which were subjected to the subsequent quality control.
 
 # Step3. QC and refinement  
-QC and refinement of the bins made in Step2 were performed with the script `03_QC_and_refine.sh`.  
+QC (CheckM) and refinement (RefineM) of the bins made in Step2 were performed with the script `03_QC_and_refine.sh`.  
 
 Following variables are required:  
 `DIR`: Directory for analysis  
 `ID`: Sample ID   
 `SET_NAME`: Name of the dataset (used for the file name of the QCed MAGs) 
 
+The protein and taxonomy databases for RefineM should be given with the variables `${REFINEM_PROTEIN_DB}` and `${REFINEM_TAXONOMY_DB}`, respectively.
+
 This script outputs QCed MAGs (`${SET_NAME}_${ID}_dastool_{1-99}.fa`) and related statistics based on the CheckM.
+
+# Step4. Analysis on the strain-level diversity, tRNA, and rRNA
+For the QCed MAGs recovered in Step3, we calculated the strain-level diversity by inStrain (average nucleotide diversity).   
+We also detected tRNA (tRNAscan-SE) and rRNA (barrnap) in the QCed MAGs.  
+These analyses were performed with the script `04_strain_div_and_RNA_anno.sh`.  
+
+Following variables are required:  
+`DIR`: Directory for analysis  
+`ID`: Sample ID   
+`FASTQ_DIR`: Directory of original fastq file  
+
+This script outputs a single summary file which includes the summarized results of the inStrain, tRNAscan-SE, and barrnap.
 
