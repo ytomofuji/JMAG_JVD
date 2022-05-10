@@ -64,7 +64,7 @@ The protein and taxonomy databases for RefineM should be given with the variable
 
 This script outputs QCed MAGs (`${SET_NAME}_${ID}_dastool_{1-99}.fa`) and related statistics based on the CheckM.
 
-# Step4. Analysis on the strain-level diversity, tRNA, and rRNA
+# Step4. Analysis on the strain-level diversity, tRNA, and rRNA   
 For the QCed MAGs recovered in Step3, we calculated the strain-level diversity by inStrain (average nucleotide diversity).   
 We also detected tRNA (tRNAscan-SE) and rRNA (barrnap) in the QCed MAGs.  
 These analyses were performed with the script `04_strain_div_and_RNA_anno.sh`.  
@@ -76,3 +76,16 @@ Following variables are required:
 
 This script outputs a single summary file which includes the summarized results of the inStrain, tRNAscan-SE, and barrnap.
 
+# Step5. Prediction and annotation of the genes on the MAGs   
+For the QCed MAGs recovered in Step3, we predicted the genes with the prodigal.   
+Then, functions of these putative genes were annotated with the eggNOG-mapper.  
+These analyses were performed with the script `05_Gene_annotation.sh`.  
+
+Following variables are required:  
+`DIR`: Directory for analysis  
+`ID`: Sample ID   
+`THREADS`: Number of the threads  
+`EGG_NOG_DB_DIR`: Directory of the databases for the eggNOG-mapper  
+
+This script outputs the result of the prodigal and eggNOG-mapper per MAGs.
+Per-sample summary files for the each annoytation of the eggNOG-mapper (i.e. COG, KEGG gene, KEGG pathway, KEGG module, and CAZy) are also generated.
