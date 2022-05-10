@@ -144,4 +144,29 @@ Following variables are required:
 
 The QCed viral genome sequences was sumamrized in the `${DIR}/VIRUS_2/${ID}/Renamed_virus.fa.gz`.
 
+## StepV3. Prophage analysis with the recovered viral genomes
+Prophage analysis was performed based on the MAGs and viral genomes recovered from the same samples.
+This procedure is performed with the sceript `V03_PROPHAGE_FIND.sh`.
+
+Following variables are required:  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+
+The result of the analysis was written in the `${ID}_Prophage_summary.tsv`.
+
+## StepV4. Quantification of the viruses
+Mapping-based quantification of the viruses was performed with the script `V04_virus_quantification.sh`.
+
+Following variables are required:  
+・`DIR`: Directory for analysis  
+・`ID`: Sample ID   
+・`FASTQ_DIR`: Directory of original fastq file  
+・`NUM`: Number of the reads used for the quantification   
+・`BT2_DB`: Bowtie2 index made from the viral genomes  
+
+The result of the analysis was written in the `${ID}_${DATABASE}_coverM.tsv.gz`.
+
+
+
+
 
