@@ -29,7 +29,7 @@ Other scripts related to the analysis performed in the Tomofuji et al are also d
 ・Trimmomatic (version 0.39)  
 
 # Step1. Assembly
-First, contigss were assembled from gut metagenome shotgun sequencing data with the script `01_assembly_and_mapping_back.sh`.  
+First, contigs were assembled from gut metagenome shotgun sequencing data with the script `01_assembly_and_mapping_back.sh`.  
 Input file should be named as `${ID}_R1.fastq.gz` and `${ID}_R2.fastq.gz`  
 
 Following variables are required:  
@@ -41,15 +41,24 @@ Following variables are required:
 
 This script outputs contigs and their coverages which were used for the subsequent binning.
 
-# Step2. Assembly
-First, contigss were assembled from gut metagenome shotgun sequencing data with the script `01_assembly_and_mapping_back.sh`.  
-Input file should be named as `${ID}_R1.fastq.gz` and `${ID}_R2.fastq.gz`  
+# Step2. Binning
+Binning with metabat2, maxbin2, and concoct was performed with the script `02_binning_and_merge.sh`.   
+The outputs from three softwares were combined with the dastools.
 
 Following variables are required:  
 `DIR`: Directory for analysis  
-`FASTQ_DIR`: Directory of original fastq file  
 `ID`: Sample ID   
-`THREADS`: Number of the threads  
 `LENGTH`: Minimum length of the contigs used for the subsequent analyses (2,000 bp was used in the original manuscript)  
 
-This script outputs contigs and their coverages which were used for the subsequent binning.
+This script outputs raw bins which were subjected to the subsequent quality control.
+
+# Step3. QC and refinement  
+QC and refinement of the bins made in Step2 were performed with the script `03_QC_and_refine.sh`.  
+
+Following variables are required:  
+`DIR`: Directory for analysis  
+`ID`: Sample ID   
+`SET_NAME`: Name of the dataset (used for the file name of the QCed MAGs) 
+
+This script outputs QCed MAGs (`${SET_NAME}_${ID}_dastool_{1-99}.fa`) and related statistics based on the CheckM.
+
