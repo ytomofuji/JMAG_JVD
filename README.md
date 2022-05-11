@@ -180,7 +180,7 @@ Following variables are required:
 The result of the analysis is written in the `${ID}_${DATABASE}_coverM.tsv.gz`.
 
 ## StepV5. Prediction and annotation of the genes on the viral genomes   
-*** This part is run after combining the viral genome sequences into a single fasta file ***
+*** This part is run after combining the viral genome sequences into a single fasta file ***   
 For the QCed viral genomes recovered in Step2, we predicted the genes with the prodigal.   
 Then, functions of these putative genes were annotated with the eggNOG-mapper and hmm-search against the VOG database.  
 These analyses were performed with the script `V05_protein_annotation.sh`.  
