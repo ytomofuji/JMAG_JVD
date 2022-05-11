@@ -28,6 +28,7 @@ Scripts related to the analysis performed in the Tomofuji et al are also deposit
 ・Prokka	(version 1.14.6, Seemann, 2014)  
 ・RefineM	(version 0.1.2, Parks et al., 2017)  
 ・Samtools	(version 1.10, Li et al., 2009)  
+・Seqkit (version 0.12.1, Shen et al., 2016)    
 ・SPAdes	(version 3.13.0, Prjibelski et al., 2020)  
 ・tRNAScan-SE	(version 2.0.7, Chan et al., 2021)  
 ・VirFinder	(version 1.1, Ren et al., 2017)  
