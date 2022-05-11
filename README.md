@@ -1,11 +1,11 @@
 # JMAG_JVD
-This is a repository of the codes used in the Tomofuji et al (prokaryotic and viral genomes recovered from 787 Japanese gut metagenomes revealed microbial features associated with diets, populations, and diseases).  
-Our script recovers  
+This is a repository for the codes used in the Tomofuji et al (prokaryotic and viral genomes recovered from 787 Japanese gut metagenomes revealed microbial features associated with diets, populations, and diseases).  
+Our scripts recover 
 ・Metagenome assembled genomes (MAGs)  
+・CRISPR spacers on the MAGs   
 ・Viral genomes  
-・CRISPR spacers    
 from the metagenome shotgun sequencing data.  
-Other scripts related to the analysis performed in the Tomofuji et al are also deposited.  
+Scripts related to the analysis performed in the Tomofuji et al are also deposited.  
 
 ## Requirements
 ・barrnap	(version 0.9, https://github.com/tseemann/barrnap)  
@@ -41,8 +41,9 @@ Other scripts related to the analysis performed in the Tomofuji et al are also d
 Scripts are deposited in `A_Binning`.
 
 ## Step1. Assembly
-First, contigs were assembled from gut metagenome shotgun sequencing data with the script `01_assembly_and_mapping_back.sh`.  
+First, contigs were assembled from the gut metagenome shotgun sequencing data with the script `01_assembly_and_mapping_back.sh`.  
 Input file should be named as `${ID}_R1.fastq.gz` and `${ID}_R2.fastq.gz`  
+For the quality control of the metagenome shotgun sequencing reads, we used OMARU (https://github.com/toshi-kishikawa/OMARU).
 
 Following variables are required:  
 ・`DIR`: Directory for analysis  
@@ -51,7 +52,8 @@ Following variables are required:
 ・`THREADS`: Number of the threads  
 ・`LENGTH`: Minimum length of the contigs used for the subsequent analyses (2,000 bp was used in the original manuscript)  
 
-This script outputs contigs and their coverages which were used for the subsequent binning.
+This script performs de novo assembly by metaspades and mapping back of the seuqnecing reads to the assembled contigs by bowtie2.
+Contigs and their coverages which were used for the subsequent binning were obtained in this step.
 
 ## Step2. Binning
 Binning with metabat2, maxbin2, and concoct was performed with the script `02_binning_and_merge.sh`.   
@@ -73,11 +75,10 @@ Following variables are required:
 ・`SET_NAME`: Name of the dataset (used for the file name of the QCed MAGs) 
 
 The protein and taxonomy databases for RefineM should be given with the variables `${REFINEM_PROTEIN_DB}` and `${REFINEM_TAXONOMY_DB}`, respectively.
-
 This script outputs QCed MAGs (`${SET_NAME}_${ID}_dastool_{1-99}.fa`) and related statistics based on the CheckM.
 
 ## Step4. Analysis on the strain-level diversity, tRNA, and rRNA   
-For the QCed MAGs recovered in Step3, we calculated the strain-level diversity by inStrain (average nucleotide diversity).   
+For the QCed MAGs recovered in the Step3, we calculated the strain-level diversity by inStrain (average nucleotide diversity).   
 We also detected tRNA (tRNAscan-SE) and rRNA (barrnap) in the QCed MAGs.  
 These analyses were performed with the script `04_strain_div_and_RNA_anno.sh`.  
 
@@ -89,7 +90,7 @@ Following variables are required:
 This script outputs a single summary file which includes the summarized results of the inStrain, tRNAscan-SE, and barrnap.
 
 ## Step5. Prediction and annotation of the genes on the MAGs   
-For the QCed MAGs recovered in Step3, we predicted the genes with the prodigal.   
+For the QCed MAGs recovered in the Step3, we predicted the genes with the prodigal.   
 Then, functions of these putative genes were annotated with the eggNOG-mapper.  
 These analyses were performed with the script `05_Gene_annotation.sh`.  
 
@@ -103,7 +104,7 @@ This script outputs the result of the prodigal and eggNOG-mapper per MAGs.
 Per-sample summary files for the each annoytation of the eggNOG-mapper (i.e. COG, KEGG gene, KEGG pathway, KEGG module, and CAZy) are also generated.
 
 ## Step6. Finding the CRISPR sequences in the MAGs and blast search against the viral sequences
-For the QCed MAGs recovered in Step3, we predicted the CRISPR sequences with the MINCED (`06_1_CRISPR_FIND.sh`).   
+For the QCed MAGs recovered in the Step3, we predicted the CRISPR sequences with the MINCED (`06_1_CRISPR_FIND.sh`).   
 
 Following variables are required:  
 ・`DIR`: Directory for analysis  
@@ -119,7 +120,7 @@ Following variables are required:
 ・`DB`: A blast database made from a viral genome database   
 ・`DB_NAME`: Name of the viral genome database (used for the name of the directory of the result files [`${DIR}/BIN_CRISPR/${ID}/BLAST/${DB_NAME}_${SOFT}`])  
 
-This script outputs the result of the blast search.
+This script outputs the results of the blast search.
 
 
 
@@ -130,8 +131,8 @@ This script outputs the result of the blast search.
 Scripts are deposited in `B_Viral_genome_recovery`.
 
 ## StepV1. VirSorter and VirFinder
-Viral genomes were detected by the VirSorter and VirFinder from the contigs assembled in Step1.   
-This procedure is performed with the sceript `V01_VirSorter_and_VirFinder.sh`.
+Viral genomes were detected by the VirSorter and VirFinder from the contigs assembled in the Step1.   
+This procedure was performed with the sceript `V01_VirSorter_and_VirFinder.sh`.
 
 Following variables are required:  
 ・`DIR`: Directory for analysis  
@@ -141,11 +142,11 @@ Following variables are required:
 ・`VIR_SORTER_DB_DIR`: A directory which contains the databases for the VirFinder.  
 ・`SCRIPT_DIR`: A directory which contains the custom scripts used in the `V01_VirSorter_and_VirFinder.sh` (i.e. Virome_sorter_finder_merge.R).  
 
-The results of the VirSorter and VirFinder were summarized into the `${ID}_virsorter_and_finder.txt`.
+The results of the VirSorter and VirFinder are summarized into the `${ID}_virsorter_and_finder.txt`.
 
 ## StepV2. Extraction of the viral contigs and quality control by the CheckV
 Viral genomes were extracted based on the result in the StepV1 and subjected to the quality control by the CheckV software.
-This procedure is performed with the sceript `V02_contig_extraction_and_CheckV.sh`.
+This procedure was performed with the sceript `V02_contig_extraction_and_CheckV.sh`.
 
 Following variables are required:  
 ・`DIR`: Directory for analysis  
@@ -154,17 +155,17 @@ Following variables are required:
 ・`SCRIPT_DIR`: A directory which contains the custom scripts used in the `V02_contig_extraction_and_CheckV.sh` (i.e. Virome_ver2_metrics_summary.R and Virome_rename_ver2.py).  
 ・`CHECKV_DB`: A path to the database for the CheckV.  
 
-The QCed viral genome sequences was sumamrized in the `${DIR}/VIRUS_2/${ID}/Renamed_virus.fa.gz`.
+The QCed viral genome sequences are sumamrized in the `${DIR}/VIRUS_2/${ID}/Renamed_virus.fa.gz`.
 
 ## StepV3. Prophage analysis with the recovered viral genomes
 Prophage analysis was performed based on the MAGs and viral genomes recovered from the same samples.
-This procedure is performed with the sceript `V03_PROPHAGE_FIND.sh`.
+This procedure was performed with the sceript `V03_PROPHAGE_FIND.sh`.
 
 Following variables are required:  
 ・`DIR`: Directory for analysis  
 ・`ID`: Sample ID   
 
-The result of the analysis was written in the `${ID}_Prophage_summary.tsv`.
+The result of the analysis is written in the `${ID}_Prophage_summary.tsv`.
 
 ## StepV4. Quantification of the viruses
 Mapping-based quantification of the viruses was performed with the script `V04_virus_quantification.sh`.
@@ -176,7 +177,7 @@ Following variables are required:
 ・`NUM`: Number of the reads used for the quantification   
 ・`BT2_DB`: Bowtie2 index made from the viral genomes  
 
-The result of the analysis was written in the `${ID}_${DATABASE}_coverM.tsv.gz`.
+The result of the analysis is written in the `${ID}_${DATABASE}_coverM.tsv.gz`.
 
 ## StepV5. Prediction and annotation of the genes on the viral genomes   
 *** This part is run after combining the viral genome sequences into a single fasta file ***
@@ -193,9 +194,9 @@ Following variables are required:
 ・`SCRIPT_DIR`: A directory which contains the custom scripts used in the `V05_protein_annotation.sh` (i.e. RCODE_VOG_processing.r)  
 ・`SGE_TASK_ID`: Batch number (1-)  
 
-We performed this analysis per batches. The viral genomes processed in each batch was defined in the `Virus_batch_${SGE_TASK_ID}.tsv`.
-`Virus_batch_${SGE_TASK_ID}.tsv` was a single column text file containing the names of the viral genomes (without header).
-
+We performed this analysis per batches.   
+The viral genomes processed in each batch is defined in the `Virus_batch_${SGE_TASK_ID}.tsv`.   
+`Virus_batch_${SGE_TASK_ID}.tsv` is a single column text file containing the names of the viral genomes (without header).
 
 
 
