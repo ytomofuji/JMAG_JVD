@@ -3,7 +3,7 @@ This is a repository of the codes used in the Tomofuji et al (prokaryotic and vi
 Our script recovers  
 ・Metagenome assembled genomes (MAGs)  
 ・Viral genomes  
-・CRISPR spacers  
+・CRISPR spacers    
 from the metagenome shotgun sequencing data.  
 Other scripts related to the analysis performed in the Tomofuji et al are also deposited.  
 
@@ -28,6 +28,7 @@ Other scripts related to the analysis performed in the Tomofuji et al are also d
 <div align="center">
 <img src="Figures/MAG_Pipeline.jpg" width=60%>
 </div>
+Scripts are deposited in `A_Binning`.
 
 ## Step1. Assembly
 First, contigs were assembled from gut metagenome shotgun sequencing data with the script `01_assembly_and_mapping_back.sh`.  
@@ -116,6 +117,7 @@ This script outputs the result of the blast search.
 <div align="center">
 <img src="Figures/Virus_Pipeline.jpg" width=60%>
 </div>
+Scripts are deposited in `B_Viral_genome_recovery`.
 
 ## StepV1. VirSorter and VirFinder
 Viral genomes were detected by the VirSorter and VirFinder from the contigs assembled in Step1.   
@@ -166,7 +168,29 @@ Following variables are required:
 
 The result of the analysis was written in the `${ID}_${DATABASE}_coverM.tsv.gz`.
 
+## StepV5. Prediction and annotation of the genes on the viral genomes   
+*** This part is run after combining the viral genome sequences into a single fasta file ***
+For the QCed viral genomes recovered in Step2, we predicted the genes with the prodigal.   
+Then, functions of these putative genes were annotated with the eggNOG-mapper and hmm-search against the VOG database.  
+These analyses were performed with the script `V05_protein_annotation.sh`.  
+
+Following variables are required:  
+・`DIR`: Directory for analysis  
+・`THREADS`: Number of the threads  
+・`BATCH_FILE_DIR`: Directiry which contains text files `Virus_batch_${SGE_TASK_ID}.tsv`  
+・`EGG_NOG_DB_DIR`: Directory of the databases for the eggNOG-mapper  
+・`VOG_HMM_DIR`: Directory of the hmm profiles of the VOG database  
+・`SCRIPT_DIR`: A directory which contains the custom scripts used in the `V05_protein_annotation.sh` (i.e. RCODE_VOG_processing.r)  
+・`SGE_TASK_ID`: Batch number (1-)  
+
+We performed this analysis per batches. The viral genomes processed in each batch was defined in the `Virus_batch_${SGE_TASK_ID}.tsv`.
+`Virus_batch_${SGE_TASK_ID}.tsv` was a single column text file containing the names of the viral genomes (without header).
 
 
 
 
+## Other related codes    
+Other related codes are deposited in `C_Other_related_codes`
+
+## Contact
+Yoshihiko Tomofuji: ytomofuji_at_sg.med.osaka-u.ac.jp
