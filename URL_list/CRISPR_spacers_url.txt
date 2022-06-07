@@ -1,0 +1,2 @@
+JGA_CRISPR_spacers	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/dra/fastq/DRA014/DRA014186/DRZ060657/provisional/CRISPR_JGA_JMAG_for_DDBJ.fasta
+TPA_CRISPR_spacers	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/dra/fastq/DRA014/DRA014184/DRZ059054/provisional/CRISPR_TPA_JMAG_for_DDBJ.fasta

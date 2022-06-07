@@ -1,0 +1,2 @@
+JGA_JVD	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/BR/BRDB.gz
+TPA_JVD	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/EM/EMNW.gz
