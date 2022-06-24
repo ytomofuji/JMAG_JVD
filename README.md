@@ -207,10 +207,10 @@ Other related codes are deposited in `C_Other_related_codes`
 
 
 ## How to download the JMAG, JVD, and CRISPR spacers
-JMAG, JVD, and CRISPR spacers were deposited in the DNA Data Bank of Japan (DDBJ) and their URLs were summarized in the National Bioscience Database Center (NBDC) with the accession number of hum0197.   
+JMAG, JVD, and CRISPR spacers were deposited in the DNA Data Bank of Japan (DDBJ; https://www.ddbj.nig.ac.jp/index.html) and their URLs will be summarized in the National Bioscience Database Center (NBDC; https://humandbs.biosciencedbc.jp/) with the accession number of hum0197.   
 You can also directly download these sequences from the ftp server of the DDBJ with the `wget` command.  
 We provided the URLs for all the files in the `URL_list` folder.  
-Deitailed metadata is provided in the original paper.
+Deitailed metadata is provided in the original manuscript.  
 
 
 ## Contact
