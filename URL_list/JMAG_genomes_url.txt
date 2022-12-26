@@ -19078,7 +19078,7 @@ JMAG_GENOME_8427	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/BR/BRFC.gz
 JMAG_GENOME_8741	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/BR/BRFD.gz
 JMAG_GENOME_8816	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/BR/BRFE.gz
 JMAG_GENOME_9954	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/BR/BRFF.gz
-JMAG_GENOME_17928	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/EM/EMNX.gz
-JMAG_GENOME_17933	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/EM/EMNY.gz
-JMAG_GENOME_18356	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/EM/EMNZ.gz
-JMAG_GENOME_18375	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/wgs/EM/EMOA.gz
+JMAG_GENOME_17928	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/tpa/wgs/EM/EMNX.gz
+JMAG_GENOME_17933	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/tpa/wgs/EM/EMNY.gz
+JMAG_GENOME_18356	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/tpa/wgs/EM/EMNZ.gz
+JMAG_GENOME_18375	ftp://ftp.ddbj.nig.ac.jp/ddbj_database/tpa/wgs/EM/EMOA.gz
